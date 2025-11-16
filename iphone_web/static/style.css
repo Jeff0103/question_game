@@ -1,0 +1,419 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft JhengHei', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 100%;
+    padding: 40px;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.quiz-header h1 {
+    color: #667eea;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 33.33%;
+    transition: width 0.5s ease;
+}
+
+.question-counter {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.question-card {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.question-card.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.question-card h2 {
+    color: #333;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+.options {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    background: #f5f5f5;
+    border: 3px solid transparent;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.option-btn:hover {
+    background: #e8e8e8;
+    transform: translateX(5px);
+}
+
+.option-btn.selected {
+    background: #667eea;
+    color: white;
+    border-color: #764ba2;
+    transform: scale(1.02);
+}
+
+.next-btn, .restart-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.next-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.next-btn:not(:disabled):hover, .restart-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.result-text {
+    font-size: 1.3em;
+    color: #666;
+    margin: 30px 0;
+    text-align: center;
+}
+
+/* 詐騙廣告樣式 */
+.scam-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInOverlay 0.3s ease;
+}
+
+.scam-overlay.show {
+    display: flex;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.scam-popup {
+    background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+    animation: popupBounce 0.6s ease;
+    border: 5px solid #ff4757;
+}
+
+@keyframes popupBounce {
+    0% {
+        transform: scale(0.3) rotate(-10deg);
+    }
+    50% {
+        transform: scale(1.05) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.scam-header {
+    text-align: right;
+    padding: 10px 20px;
+}
+
+.close-btn {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    color: #ff4757;
+}
+
+.scam-content {
+    padding: 20px 40px 40px;
+    text-align: center;
+    color: white;
+}
+
+.celebration {
+    font-size: 3em;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.scam-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.phone-image {
+    font-size: 5em;
+    margin: 20px 0;
+    animation: rotate 2s infinite;
+}
+
+@keyframes rotate {
+    0%, 100% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+}
+
+.prize-text {
+    font-size: 2em;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.scam-desc {
+    font-size: 1.3em;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.highlight {
+    color: #ff4757;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.timer {
+    background: white;
+    color: #ff4757;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 20px 0;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.claim-btn {
+    background: linear-gradient(135deg, #ff4757, #ff6348);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 50px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px 0;
+    box-shadow: 0 10px 30px rgba(255, 71, 87, 0.5);
+    transition: all 0.3s ease;
+}
+
+.claim-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(255, 71, 87, 0.7);
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.warning-text {
+    color: #ff4757;
+    font-size: 1.1em;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.fake-comments {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.fake-comments p {
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .quiz-header h1 {
+        font-size: 1.8em;
+    }
+
+    .question-card h2 {
+        font-size: 1.3em;
+    }
+
+    .option-btn {
+        padding: 15px;
+        font-size: 1em;
+    }
+
+    .scam-popup {
+        width: 95%;
+    }
+
+    .scam-content {
+        padding: 20px;
+    }
+
+    .scam-title {
+        font-size: 1.8em;
+    }
+
+    .phone-image {
+        font-size: 3em;
+    }
+
+    .prize-text {
+        font-size: 1.5em;
+    }
+
+    .claim-btn {
+        font-size: 1.2em;
+        padding: 15px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quiz-header h1 {
+        font-size: 1.5em;
+    }
+
+    .question-card h2 {
+        font-size: 1.1em;
+    }
+
+    .scam-title {
+        font-size: 1.5em;
+    }
+
+    .scam-desc {
+        font-size: 1.1em;
+    }
+}
+
